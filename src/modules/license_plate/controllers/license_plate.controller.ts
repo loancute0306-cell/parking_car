@@ -13,11 +13,11 @@ export class LicensePlateController {
     }
 
     @ApiOperation({ summary: 'Recognize License Plate from Image URL' })
-    @Post()
+    @Post('from-url')
     async recognizeLicensePlate(
         @Body() dto: RecognizeLicensePlateDto
     ) {
-        const result = this.licensePlateService.recognizeLicensePlate(dto.imageUrl);
+        const result = await this.licensePlateService.recognizeLicensePlate(dto.imageUrl);
         return result;
     }
 
@@ -38,7 +38,7 @@ export class LicensePlateController {
     @UseInterceptors(
         FileInterceptor('file', {
             storage: diskStorage({
-                destination: './uploads',
+                destination: '/tmp', // cloud-friendly
                 filename: (req, file, cb) => {
                     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
                     cb(null, uniqueSuffix + extname(file.originalname));
