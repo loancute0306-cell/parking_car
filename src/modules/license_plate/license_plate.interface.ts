@@ -8,5 +8,5 @@ export class RecognizeLicensePlateDto {
         type: String,
     })
     @JoiValidate(Joi.string().uri().required())
-    imageUrl: string;
+    imageUrl?: string;
 }
