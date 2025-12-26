@@ -21,7 +21,7 @@ import { ParkingLotsModule } from './modules/parking_lots/parking_lots.module';
         CommonModule,
         I18nModule,
         MongoModule,
-        UserModule,
+        // UserModule,
         ParkingLotsModule,
     ],
     controllers: [AppController],
