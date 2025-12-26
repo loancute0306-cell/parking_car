@@ -11,6 +11,7 @@ import { UserModule } from './modules/user/user.module';
 import { TransformInterceptor } from './modules/common/transform.interceptor';
 import { HeaderMiddleware } from './modules/middleware/header.middleware';
 import { ParkingLotsModule } from './modules/parking_lots/parking_lots.module';
+import { ParkingSpotsModule } from './modules/parking_spots/parking_spots.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -23,6 +24,7 @@ import { ParkingLotsModule } from './modules/parking_lots/parking_lots.module';
         MongoModule,
         // UserModule,
         ParkingLotsModule,
+        ParkingSpotsModule
     ],
     controllers: [AppController],
     providers: [
