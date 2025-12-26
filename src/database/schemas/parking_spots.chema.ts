@@ -3,6 +3,7 @@ import { MongoBaseSchema } from "./base.schema";
 import { createSchemaForClass } from "../utils/helper";
 import { MongoCollection } from "../utils/constants";
 import * as mongoose from "mongoose";
+import { Parking_Lots } from "./parking_lots.schema";
 export type Parking_SpotsDocument = SchemaDocument<Parking_Spots>;
 @Schema({
     timestamps: true,
@@ -19,7 +20,7 @@ export class Parking_Spots extends MongoBaseSchema {
     spotCode: string; //A1-1, A1-2
     @Prop({ required: true, type: Boolean, default: true })
     isAvailable: boolean;
-    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Parking_Lots' })
+    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: Parking_Lots.name })
     parkingLotId: mongoose.Types.ObjectId;
 }
 
