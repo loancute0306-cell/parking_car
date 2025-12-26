@@ -22,22 +22,35 @@ export class LicensePlateService {
         }
     }
 
-    async recognizeLicensePlateFromFile(filePath: string): Promise<any> {
-        try {
-            const form = new FormData();
-            form.append('upload', fs.createReadStream(filePath));
+    async recognizeLicensePlateFromBuffer(fileBuffer: Buffer, filename: string): Promise<any> {
+        const form = new FormData();
+        form.append('upload', fileBuffer, { filename });
 
-            const response = await axios.post(this.apiUrl, form, {
-                headers: {
-                    ...form.getHeaders(),
-                    Authorization: `Token ${this.apiKey}`,
-                },
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error(error.response?.data || error.message);
-            throw new Error('Failed to recognize license plate');
-        }
+        const response = await axios.post(this.apiUrl, form, {
+            headers: {
+                ...form.getHeaders(),
+                Authorization: `Token ${this.apiKey}`,
+            },
+        });
+        return response.data;
     }
+
+    // async recognizeLicensePlateFromFile(filePath: string): Promise<any> {
+    //     try {
+    //         const form = new FormData();
+    //         form.append('upload', fs.createReadStream(filePath));
+
+    //         const response = await axios.post(this.apiUrl, form, {
+    //             headers: {
+    //                 ...form.getHeaders(),
+    //                 Authorization: `Token ${this.apiKey}`,
+    //             },
+    //         });
+
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error(error.response?.data || error.message);
+    //         throw new Error('Failed to recognize license plate');
+    //     }
+    // }
 }
