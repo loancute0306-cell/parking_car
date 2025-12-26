@@ -1,8 +1,7 @@
-import { ApiBody, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiTags, ApiOperation } from "@nestjs/swagger";
 import { Controller, Delete, Patch, Post, Get, Query } from "@nestjs/common";
 import { BaseController } from "@/common/base/base.controller";
 import { ParkingLotsService } from "../services/parking_lots.service";
-import { ApiOperation } from "@nestjs/swagger";
 import { ApiResponseError, ApiResponseSuccess, SwaggerApiType } from "@/common/services/swagger.service";
 import {
     createParkingLotSuccessResponseExample,
