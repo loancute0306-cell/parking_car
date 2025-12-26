@@ -10,6 +10,7 @@ import { CommonModule } from './modules/common/common.module';
 import { UserModule } from './modules/user/user.module';
 import { TransformInterceptor } from './modules/common/transform.interceptor';
 import { HeaderMiddleware } from './modules/middleware/header.middleware';
+import { ParkingLotsModule } from './modules/parking_lots/parking_lots.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -21,6 +22,7 @@ import { HeaderMiddleware } from './modules/middleware/header.middleware';
         I18nModule,
         MongoModule,
         UserModule,
+        ParkingLotsModule,
     ],
     controllers: [AppController],
     providers: [
