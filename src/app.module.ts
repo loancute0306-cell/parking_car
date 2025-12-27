@@ -13,6 +13,7 @@ import { HeaderMiddleware } from './modules/middleware/header.middleware';
 import { ParkingLotsModule } from './modules/parking_lots/parking_lots.module';
 import { ParkingSpotsModule } from './modules/parking_spots/parking_spots.module';
 import { LicensePlateModule } from './modules/license_plate/license_plate.module';
+import { CarInfoModule } from './modules/car_info/car_info.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -26,7 +27,8 @@ import { LicensePlateModule } from './modules/license_plate/license_plate.module
         // UserModule,
         ParkingLotsModule,
         ParkingSpotsModule,
-        LicensePlateModule
+        LicensePlateModule,
+        CarInfoModule
     ],
     controllers: [AppController],
     providers: [
