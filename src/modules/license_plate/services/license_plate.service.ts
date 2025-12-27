@@ -32,7 +32,10 @@ export class LicensePlateService {
                 Authorization: `Token ${this.apiKey}`,
             },
         });
-        return response.data;
+        // return response.data;
+        return {
+            plate: response.data.results[0]?.plate || null,
+        };
     }
 
     // async recognizeLicensePlateFromFile(filePath: string): Promise<any> {
