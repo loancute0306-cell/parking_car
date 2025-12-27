@@ -12,14 +12,14 @@ export class LicensePlateController {
     constructor(private readonly licensePlateService: LicensePlateService) {
     }
 
-    @ApiOperation({ summary: 'Recognize License Plate from Image URL' })
-    @Post('from-url')
-    async recognizeLicensePlate(
-        @Body() dto: RecognizeLicensePlateDto
-    ) {
-        const result = await this.licensePlateService.recognizeLicensePlate(dto.imageUrl);
-        return result;
-    }
+    // @ApiOperation({ summary: 'Recognize License Plate from Image URL' })
+    // @Post('from-url')
+    // async recognizeLicensePlate(
+    //     @Body() dto: RecognizeLicensePlateDto
+    // ) {
+    //     const result = await this.licensePlateService.recognizeLicensePlate(dto.imageUrl);
+    //     return result;
+    // }
 
     @ApiOperation({ summary: 'Recognize License Plate from Image File' })
     @ApiConsumes('multipart/form-data')
