@@ -28,22 +28,22 @@ export class ParkingSpotsController extends BaseController {
         super();
     }
 
-    @ApiOperation({ summary: 'Create Parking Spot' })
-    @ApiResponseError([SwaggerApiType.CREATE])
-    @ApiResponseSuccess([createParkingSpotSuccessResponseExample])
-    @ApiBody({ type: CreateParkingSpotDto })
-    @Post()
-    async createParkingSpot(
-        @Body(new TrimBodyPipe(), new JoiValidationPipe())
-        dto: CreateParkingSpotDto,
-    ) {
-        try {
-            const result = await this.parkingSpotsService.createParkingSpot(dto);
-            return new SuccessResponse(result);
-        } catch (error) {
-            this.handleError(error);
-        }
-    }
+    // @ApiOperation({ summary: 'Create Parking Spot' })
+    // @ApiResponseError([SwaggerApiType.CREATE])
+    // @ApiResponseSuccess([createParkingSpotSuccessResponseExample])
+    // @ApiBody({ type: CreateParkingSpotDto })
+    // @Post()
+    // async createParkingSpot(
+    //     @Body(new TrimBodyPipe(), new JoiValidationPipe())
+    //     dto: CreateParkingSpotDto,
+    // ) {
+    //     try {
+    //         const result = await this.parkingSpotsService.createParkingSpot(dto);
+    //         return new SuccessResponse(result);
+    //     } catch (error) {
+    //         this.handleError(error);
+    //     }
+    // }
 
     @ApiOperation({ summary: 'Update Parking Spot by id' })
     @ApiResponseError([SwaggerApiType.UPDATE])
@@ -74,31 +74,31 @@ export class ParkingSpotsController extends BaseController {
         }
     }
 
-    @ApiOperation({ summary: 'Delete Parking Spot by id' })
-    @ApiResponseError([SwaggerApiType.DELETE])
-    @ApiResponseSuccess([deleteParkingSpotSuccessResponseExample])
-    @Delete(':id')
-    async deleteParkingSpot(
-        @Param('id', new JoiValidationPipe(mongoIdSchema)) id: string,
-    ) {
-        try {
-            const parkingSpot = await this.parkingSpotsService.findParkingSpotById(toObjectId(id));
-            if (!parkingSpot) {
-                return new ErrorResponse(
-                    HttpStatus.ITEM_NOT_FOUND,
-                    this.translate('errors.itemNotFound', {
-                        args: {
-                            id,
-                        }
-                    }),
-                );
-            }
-            const result = await this.parkingSpotsService.deleteParkingSpot(toObjectId(id));
-            return new SuccessResponse(result);
-        } catch (error) {
-            this.handleError(error);
-        }
-    }
+    // @ApiOperation({ summary: 'Delete Parking Spot by id' })
+    // @ApiResponseError([SwaggerApiType.DELETE])
+    // @ApiResponseSuccess([deleteParkingSpotSuccessResponseExample])
+    // @Delete(':id')
+    // async deleteParkingSpot(
+    //     @Param('id', new JoiValidationPipe(mongoIdSchema)) id: string,
+    // ) {
+    //     try {
+    //         const parkingSpot = await this.parkingSpotsService.findParkingSpotById(toObjectId(id));
+    //         if (!parkingSpot) {
+    //             return new ErrorResponse(
+    //                 HttpStatus.ITEM_NOT_FOUND,
+    //                 this.translate('errors.itemNotFound', {
+    //                     args: {
+    //                         id,
+    //                     }
+    //                 }),
+    //             );
+    //         }
+    //         const result = await this.parkingSpotsService.deleteParkingSpot(toObjectId(id));
+    //         return new SuccessResponse(result);
+    //     } catch (error) {
+    //         this.handleError(error);
+    //     }
+    // }
 
     @ApiOperation({ summary: 'Get Parking Spot detail by id' })
     @ApiResponseError([SwaggerApiType.GET_DETAIL])
