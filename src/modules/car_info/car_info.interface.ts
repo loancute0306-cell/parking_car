@@ -92,29 +92,29 @@ export class GetCarInfoListQuery extends CommonListQuery {
     @JoiValidate(Joi.string().trim().max(20).optional())
     licensePlate?: string;
 
-    @ApiProperty({
-        type: String,
-        default: '659e7592b3b56d0946b3c7b5',
-        description: 'Filter by Parking Lot ID',
-        maxLength: INPUT_TEXT_MAX_LENGTH
-    })
-    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
-    parkingLotId?: string;
+    // @ApiProperty({
+    //     type: String,
+    //     default: '659e7592b3b56d0946b3c7b5',
+    //     description: 'Filter by Parking Lot ID',
+    //     maxLength: INPUT_TEXT_MAX_LENGTH
+    // })
+    // @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
+    // parkingLotId?: string;
 
-    @ApiProperty({
-        type: String,
-        default: '759e7592b3b56d0946b3c7b9',
-        description: 'Filter by Parking Spot ID',
-        maxLength: INPUT_TEXT_MAX_LENGTH
-    })
-    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
-    parkingSpotId?: string;
+    // @ApiProperty({
+    //     type: String,
+    //     default: '759e7592b3b56d0946b3c7b9',
+    //     description: 'Filter by Parking Spot ID',
+    //     maxLength: INPUT_TEXT_MAX_LENGTH
+    // })
+    // @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
+    // parkingSpotId?: string;
 
-    @ApiProperty({
-        type: Boolean,
-        default: false,
-        description: 'Filter by parking status',
-    })
-    @JoiValidate(Joi.boolean().optional())
-    isParked?: boolean;
+    // @ApiProperty({
+    //     type: Boolean,
+    //     default: false,
+    //     description: 'Filter by parking status',
+    // })
+    // @JoiValidate(Joi.boolean().optional())
+    // isParked?: boolean;
 }
