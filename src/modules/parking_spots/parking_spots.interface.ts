@@ -80,19 +80,19 @@ export class GetParkingSpotListQuery extends CommonListQuery {
     @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
     spotCode?: string;
 
-    @ApiProperty({
-        type: String,
-        maxLength: INPUT_TEXT_MAX_LENGTH,
-        default: "Parking Lot's ID for filter",
-    })
-    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
-    parkingLotId?: string;
+    // @ApiProperty({
+    //     type: String,
+    //     maxLength: INPUT_TEXT_MAX_LENGTH,
+    //     default: "Parking Lot's ID for filter",
+    // })
+    // @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
+    // parkingLotId?: string;
 
-    @ApiProperty({
-        type: Boolean,
-        default: true,
-        description: 'Filter by availability status',
-    })
-    @JoiValidate(Joi.boolean().optional())
-    isAvailable?: boolean;
+    // @ApiProperty({
+    //     type: Boolean,
+    //     default: true,
+    //     description: 'Filter by availability status',
+    // })
+    // @JoiValidate(Joi.boolean().optional())
+    // isAvailable?: boolean;
 }
