@@ -55,9 +55,18 @@ export class ParkingSpotsService extends BaseService<Parking_Spots, ParkingSpots
         }
     }
 
-    async findAllParkingSpotsByQuery(query: GetParkingSpotListQuery) {
+    async findAllParkingSpotsByKeyword(keyword = '') {
         try {
-            return await this.parkingSpotsRepository.findAllAndCountParkingSpotsByQuery(query);
+            return await this.parkingSpotsRepository.findAllAndCountParkingSpotsByKeyword(keyword);
+        } catch (error) {
+            this.logger.error('Error in ParkingSpotsService findAllParkingSpotsByQuery: ' + error);
+            throw error;
+        }
+    }
+
+    async findAllParkingSpots() {
+        try {
+            return await this.parkingSpotsRepository.findAll();
         } catch (error) {
             this.logger.error('Error in ParkingSpotsService findAllParkingSpotsByQuery: ' + error);
             throw error;

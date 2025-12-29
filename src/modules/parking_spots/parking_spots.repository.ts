@@ -21,33 +21,19 @@ export class ParkingSpotsRepository extends BaseRepository<Parking_Spots> {
         super(parkingSpotsModel);
     }
 
-    async findAllAndCountParkingSpotsByQuery(query: GetParkingSpotListQuery) {
+    async findAllAndCountParkingSpotsByKeyword(keyword = '') {
         try {
-            const {
-                keyword = '',
-                page = +DEFAULT_FIRST_PAGE,
-                limit = +DEFAULT_LIMIT_FOR_PAGINATION,
-                orderBy = DEFAULT_ORDER_BY,
-                orderDirection = DEFAULT_ORDER_DIRECTION,
-                spotCode = '',
-            } = query;
-
-            const matchQuery: FilterQuery<Parking_Spots> = {};
-            matchQuery.$and = [
-                {
-                    ...softDeleteCondition,
-                },
-            ];
+            const matchQuery: FilterQuery<Parking_Spots> = {
+                $and: [
+                    {
+                        ...softDeleteCondition,
+                    },
+                ],
+            };
 
             if (keyword) {
                 matchQuery.$and.push({
-                    spotCode: { $regex: `.*${keyword}.*`, $options: 'i' },
-                });
-            }
-
-            if (spotCode) {
-                matchQuery.$and.push({
-                    spotCode,
+                    spotCode: { $regex: keyword, $options: 'i' },
                 });
             }
 
@@ -58,9 +44,49 @@ export class ParkingSpotsRepository extends BaseRepository<Parking_Spots> {
                     },
                 },
                 {
-                    $match: {
-                        ...matchQuery,
+                    $match: matchQuery,
+                },
+                {
+                    $project: parseMongoProjection(ParkingSpotsAttributesForList),
+                },
+                {
+                    $facet: {
+                        count: [{ $count: 'total' }],
+                        data: [{ $sort: { _id: 1 } }],
                     },
+                },
+            ]);
+
+            return {
+                totalItems: result?.count?.[0]?.total || 0,
+                item: result?.data || [],
+            };
+        } catch (error) {
+            this.logger.error(
+                'Error in ParkingSpotsRepository findAllAndCountParkingSpotsByKeyword: ' +
+                error,
+            );
+            throw error;
+        }
+    }
+
+
+
+
+    async findAll() {
+        try {
+            const matchQuery: FilterQuery<Parking_Spots> = {
+                ...softDeleteCondition,
+            };
+
+            const [result] = await this.parkingSpotsModel.aggregate([
+                {
+                    $addFields: {
+                        id: { $toString: '$_id' },
+                    },
+                },
+                {
+                    $match: matchQuery,
                 },
                 {
                     $project: parseMongoProjection(ParkingSpotsAttributesForList),
@@ -71,32 +97,22 @@ export class ParkingSpotsRepository extends BaseRepository<Parking_Spots> {
                         data: [
                             {
                                 $sort: {
-                                    [orderBy]:
-                                        orderDirection === OrderDirection.ASC
-                                            ? 1
-                                            : -1,
-                                    ['_id']:
-                                        orderDirection === OrderDirection.ASC
-                                            ? 1
-                                            : -1,
+                                    _id: 1,
                                 },
-                            },
-                            {
-                                $skip: (page - 1) * limit,
-                            },
-                            {
-                                $limit: Number(limit),
                             },
                         ],
                     },
                 },
             ]);
+
             return {
                 totalItems: result?.count?.[0]?.total || 0,
                 item: result?.data || [],
-            }
+            };
         } catch (error) {
-            this.logger.error('Error in ParkingSpotsRepository findAllAndCountParkingSpotsByQuery: ' + error);
+            this.logger.error(
+                'Error in CarInfoRepository findAllAndCountCarInfoByQuery: ' + error,
+            );
             throw error;
         }
     }

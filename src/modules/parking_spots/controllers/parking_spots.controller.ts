@@ -130,11 +130,11 @@ export class ParkingSpotsController extends BaseController {
     @ApiResponseSuccess([getParkingSpotListSuccessResponseExample])
     @Get()
     async getParkingSpotList(
-        @Query(new JoiValidationPipe())
-        query: GetParkingSpotListQuery,
+        @Query('keyword') keyword?: string
+
     ) {
         try {
-            const result = await this.parkingSpotsService.findAllParkingSpotsByQuery(query);
+            const result = await this.parkingSpotsService.findAllParkingSpotsByKeyword(keyword);
             return new SuccessResponse(result);
         } catch (error) {
             this.handleError(error);
