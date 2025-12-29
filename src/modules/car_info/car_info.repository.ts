@@ -102,7 +102,6 @@ export class CarInfoRepository extends BaseRepository<Car_Info> {
         }
     }
 
-
     async findAllAndCountCarInfo() {
         try {
             const matchQuery: FilterQuery<Car_Info> = {
@@ -146,7 +145,6 @@ export class CarInfoRepository extends BaseRepository<Car_Info> {
             throw error;
         }
     }
-
 
     async findAllAndCountCarInfoIncludeDeleted() {
         try {
