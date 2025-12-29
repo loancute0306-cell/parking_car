@@ -101,4 +101,94 @@ export class CarInfoRepository extends BaseRepository<Car_Info> {
             throw error;
         }
     }
+
+
+    async findAllAndCountCarInfo() {
+        try {
+            const matchQuery: FilterQuery<Car_Info> = {
+                ...softDeleteCondition,
+            };
+
+            const [result] = await this.carInfoModel.aggregate([
+                {
+                    $addFields: {
+                        id: { $toString: '$_id' },
+                    },
+                },
+                {
+                    $match: matchQuery,
+                },
+                {
+                    $project: parseMongoProjection(CarInfoAttributesForList),
+                },
+                {
+                    $facet: {
+                        count: [{ $count: 'total' }],
+                        data: [
+                            {
+                                $sort: {
+                                    _id: 1,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ]);
+
+            return {
+                totalItems: result?.count?.[0]?.total || 0,
+                item: result?.data || [],
+            };
+        } catch (error) {
+            this.logger.error(
+                'Error in CarInfoRepository findAllAndCountCarInfoByQuery: ' + error,
+            );
+            throw error;
+        }
+    }
+
+
+    async findAllAndCountCarInfoIncludeDeleted() {
+        try {
+            const matchQuery: FilterQuery<Car_Info> = {
+                // ...softDeleteCondition,
+            };
+
+            const [result] = await this.carInfoModel.aggregate([
+                {
+                    $addFields: {
+                        id: { $toString: '$_id' },
+                    },
+                },
+                {
+                    $match: matchQuery,
+                },
+                {
+                    $project: parseMongoProjection(CarInfoAttributesForList),
+                },
+                {
+                    $facet: {
+                        count: [{ $count: 'total' }],
+                        data: [
+                            {
+                                $sort: {
+                                    _id: 1,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ]);
+
+            return {
+                totalItems: result?.count?.[0]?.total || 0,
+                item: result?.data || [],
+            };
+        } catch (error) {
+            this.logger.error(
+                'Error in CarInfoRepository findAllAndCountCarInfoByQuery: ' + error,
+            );
+            throw error;
+        }
+    }
 }
