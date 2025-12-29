@@ -17,7 +17,6 @@ import { Body, Post, Patch, Delete, Get, Query } from "@nestjs/common";
 import { SuccessResponse, ErrorResponse } from "@/common/helpers/response";
 import { mongoIdSchema, HttpStatus } from "@/common/constants";
 import { toObjectId } from "@/common/helpers/commonFunctions";
-import { query } from "express";
 @ApiTags('Car Info Apis')
 @Controller('car-info')
 export class CarInfoController extends BaseController {
