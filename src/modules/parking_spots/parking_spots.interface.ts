@@ -33,22 +33,22 @@ export class CreateParkingSpotDto {
 }
 
 export class UpdateParkingSpotDto {
-    @ApiProperty({
-        type: String,
-        default: 'A1-1',
-        maxLength: INPUT_TEXT_MAX_LENGTH
-    })
-    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
-    spotCode: string; //A1-1, A1-2
+    // @ApiProperty({
+    //     type: String,
+    //     default: 'A1-1',
+    //     maxLength: INPUT_TEXT_MAX_LENGTH
+    // })
+    // @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
+    // spotCode: string; //A1-1, A1-2
 
-    @ApiProperty({
-        type: String,
-        default: '659e7592b3b56d0946b3c7b5',
-        description: 'Parking Lot ID where the spot belongs to',
-        maxLength: INPUT_TEXT_MAX_LENGTH
-    })
-    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
-    parkingLotId: string;
+    // @ApiProperty({
+    //     type: String,
+    //     default: '659e7592b3b56d0946b3c7b5',
+    //     description: 'Parking Lot ID where the spot belongs to',
+    //     maxLength: INPUT_TEXT_MAX_LENGTH
+    // })
+    // @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
+    // parkingLotId: string;
 
     @ApiProperty({
         type: Boolean,
