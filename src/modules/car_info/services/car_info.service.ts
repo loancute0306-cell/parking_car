@@ -1,4 +1,4 @@
-import { Injectable, Type } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Car_Info, Car_InfoDocument } from '@/database/schemas/car_info.schema';
 import { CreateCarInfoDto, GetCarInfoListQuery, UpdateCarInfoDto } from '../car_info.interface';
 import { BaseService } from '@/common/base/base.service';
@@ -16,6 +16,7 @@ export class CarInfoService extends BaseService<Car_Info, CarInfoRepository> {
         try {
             const carInfo: SchemaCreateDocument<Car_Info> = {
                 ...(dto as any),
+                isParked: true
             };
             return await this.carInfoRepository.createOne(carInfo);
         } catch (error) {
@@ -36,7 +37,9 @@ export class CarInfoService extends BaseService<Car_Info, CarInfoRepository> {
 
     async deleteCarInfo(id: Types.ObjectId) {
         try {
-            await this.carInfoRepository.softDeleteOne({ _id: id });
+            await this.carInfoRepository.softDeleteOne({ _id: id }, {
+                isParked: false
+            });
             return { id };
         } catch (error) {
             this.logger.error('Error in CarInfoService deleteCarInfo: ' + error);
@@ -62,6 +65,22 @@ export class CarInfoService extends BaseService<Car_Info, CarInfoRepository> {
         } catch (error) {
             this.logger.error('Error in CarInfoService findAllCarInfoByQuery: ' + error);
             throw error;
+        }
+    }
+
+    async findAllCarInfo() {
+        try {
+            return await this.carInfoRepository.findAllAndCountCarInfo()
+        } catch (error) {
+            this.logger.error('Error in CarInfoService findAllCarInfo: ' + error)
+        }
+    }
+
+    async findAllCarInfoIncludeDeleted() {
+        try {
+            return await this.carInfoRepository.findAllAndCountCarInfoIncludeDeleted()
+        } catch (error) {
+            this.logger.error('Error in CarInfoService findAllCarInfoIncludeDeleded: ' + error)
         }
     }
 }
