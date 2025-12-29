@@ -4,11 +4,13 @@ import { Car_Info, Car_InfoSchema } from '../../database/schemas/car_info.schema
 import { CarInfoController } from "./controllers/car_info.controller";
 import { CarInfoService } from "./services/car_info.service";
 import { CarInfoRepository } from "./car_info.repository";
+import { HistoryController } from "./controllers/history.controller";
+import { CarInfoListController } from "./controllers/car_info_list.controller";
 
 
 @Module({
     imports: [MongooseModule.forFeature([{ name: Car_Info.name, schema: Car_InfoSchema }])],
-    controllers: [CarInfoController],
+    controllers: [CarInfoController, HistoryController, CarInfoListController],
     providers: [CarInfoService, CarInfoRepository],
     exports: [CarInfoRepository],
 })
