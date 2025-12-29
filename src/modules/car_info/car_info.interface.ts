@@ -31,13 +31,13 @@ export class CreateCarInfoDto {
     @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
     parkingSpotId: string;
 
-    @ApiProperty({
-        type: Boolean,
-        default: false,
-        description: 'Is the car currently parked'
-    })
-    @JoiValidate(Joi.boolean().required())
-    isParked: boolean;
+    // @ApiProperty({
+    //     type: Boolean,
+    //     default: false,
+    //     description: 'Is the car currently parked'
+    // })
+    // @JoiValidate(Joi.boolean().required())
+    // isParked: boolean;
 }
 
 export class UpdateCarInfoDto {
@@ -67,13 +67,13 @@ export class UpdateCarInfoDto {
     @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
     parkingSpotId: string;
 
-    @ApiProperty({
-        type: Boolean,
-        default: false,
-        description: 'Is the car currently parked'
-    })
-    @JoiValidate(Joi.boolean().required())
-    isParked: boolean;
+    // @ApiProperty({
+    //     type: Boolean,
+    //     default: false,
+    //     description: 'Is the car currently parked'
+    // })
+    // @JoiValidate(Joi.boolean().required())
+    // isParked: boolean;
 }
 
 export class GetCarInfoListQuery extends CommonListQuery {
