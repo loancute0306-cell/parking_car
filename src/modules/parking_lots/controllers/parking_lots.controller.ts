@@ -129,16 +129,29 @@ export class ParkingLotsController extends BaseController {
         }
     }
 
+    // @ApiOperation({ summary: 'Get Parking Lot list' })
+    // @ApiResponseError([SwaggerApiType.GET_LIST])
+    // @ApiResponseSuccess(getParkingLotListSuccessResponseExample)
+    // @Get()
+    // async getParkingLotList(
+    //     @Query(new JoiValidationPipe())
+    //     query: GetParkingLotListQuery
+    // ) {
+    //     try {
+    //         const result = await this.parkingLotsService.findAllParkingLotsByQuery(query);
+    //         return new SuccessResponse(result);
+    //     } catch (error) {
+    //         this.handleError(error);
+    //     }
+    // }
+
     @ApiOperation({ summary: 'Get Parking Lot list' })
     @ApiResponseError([SwaggerApiType.GET_LIST])
     @ApiResponseSuccess(getParkingLotListSuccessResponseExample)
     @Get()
-    async getParkingLotList(
-        @Query(new JoiValidationPipe())
-        query: GetParkingLotListQuery
-    ) {
+    async getParkingLotList() {
         try {
-            const result = await this.parkingLotsService.findAllParkingLotsByQuery(query);
+            const result = await this.parkingLotsService.findAllParkingLots();
             return new SuccessResponse(result);
         } catch (error) {
             this.handleError(error);

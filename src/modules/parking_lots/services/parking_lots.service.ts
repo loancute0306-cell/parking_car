@@ -58,9 +58,19 @@ export class ParkingLotsService extends BaseService<Parking_Lots, ParkingLotsRep
         }
     }
 
-    async findAllParkingLotsByQuery(query: GetParkingLotListQuery) {
+    // async findAllParkingLotsByQuery(query: GetParkingLotListQuery) {
+    //     try {
+    //         const result = await this.parkingLotsRepository.findAllAndCountParkingLotsByQuery(query);
+    //         return result;
+    //     } catch (error) {
+    //         this.logger.error('Error in ParkingLotsService findAllParkingLotsByQuery: ' + error);
+    //         throw error;
+    //     }
+    // }
+
+    async findAllParkingLots() {
         try {
-            const result = await this.parkingLotsRepository.findAllAndCountParkingLotsByQuery(query);
+            const result = await this.parkingLotsRepository.findAll();
             return result;
         } catch (error) {
             this.logger.error('Error in ParkingLotsService findAllParkingLotsByQuery: ' + error);

@@ -104,4 +104,49 @@ export class ParkingLotsRepository extends BaseRepository<Parking_Lots> {
             throw error;
         }
     }
+
+
+    async findAll() {
+        try {
+            const matchQuery: FilterQuery<Parking_Lots> = {
+                ...softDeleteCondition,
+            };
+
+            const [result] = await this.parkingLotsModel.aggregate([
+                {
+                    $addFields: {
+                        id: { $toString: '$_id' },
+                    },
+                },
+                {
+                    $match: matchQuery,
+                },
+                {
+                    $project: parseMongoProjection(ParkingLotsAttributesForList),
+                },
+                {
+                    $facet: {
+                        count: [{ $count: 'total' }],
+                        data: [
+                            {
+                                $sort: {
+                                    _id: 1,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ]);
+
+            return {
+                totalItems: result?.count?.[0]?.total || 0,
+                item: result?.data || [],
+            };
+        } catch (error) {
+            this.logger.error(
+                'Error in CarInfoRepository findAllAndCountCarInfoByQuery: ' + error,
+            );
+            throw error;
+        }
+    }
 }
