@@ -19,7 +19,7 @@ export class BaseRepository<T extends MongoBaseSchema> {
     @InjectConnection()
     readonly connection: mongoose.Connection;
 
-    constructor(readonly model: Model<SchemaDocument<T>>) {}
+    constructor(readonly model: Model<SchemaDocument<T>>) { }
 
     @Inject()
     i18n!: I18nService;
@@ -42,10 +42,13 @@ export class BaseRepository<T extends MongoBaseSchema> {
         }
     }
 
-    async softDeleteOne(filter: FilterQuery<SchemaDocument<T>>) {
+    async softDeleteOne(filter: FilterQuery<SchemaDocument<T>>,
+        extraUpdate: Partial<SchemaDocument<T>> = {},
+    ) {
         try {
             return this.model.updateOne(filter, {
                 deletedAt: new Date(),
+                ...extraUpdate
             });
         } catch (error) {
             this.logger.error(`Error in BaseRepository softDelete: ${error}`);
