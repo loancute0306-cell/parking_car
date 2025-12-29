@@ -15,6 +15,7 @@ export const CarInfoAttributesForList: (keyof Car_Info)[] = [
     'isParked',
     'createdAt',
     'updatedAt',
+    'deletedAt'
 ]
 
 export const CarInfoAttributesForDetail: (keyof Car_Info)[] = [
