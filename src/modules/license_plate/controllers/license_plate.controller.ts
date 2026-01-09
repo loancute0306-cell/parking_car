@@ -1,11 +1,13 @@
-import { Body, Controller, Post, UseInterceptors, UploadedFile } from "@nestjs/common";
-import { ApiOperation, ApiTags, ApiBody, ApiConsumes } from "@nestjs/swagger";
+import { Body, Controller, Post, UseInterceptors, UploadedFile, UseGuards } from "@nestjs/common";
+import { ApiOperation, ApiTags, ApiBody, ApiConsumes, ApiBearerAuth } from "@nestjs/swagger";
 import { LicensePlateService } from "../services/license_plate.service";
 import { RecognizeLicensePlateDto } from "../license_plate.interface";
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage, memoryStorage } from 'multer';
-import { extname } from 'path';
+import { memoryStorage } from 'multer';
+import { JwtAuthGuard } from "@/modules/guard/jwt-auth.guard";
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags("License Plate APIs")
 @Controller("license-plate")
 export class LicensePlateController {
