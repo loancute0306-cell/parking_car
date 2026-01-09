@@ -14,6 +14,7 @@ import { ParkingLotsModule } from './modules/parking_lots/parking_lots.module';
 import { ParkingSpotsModule } from './modules/parking_spots/parking_spots.module';
 import { LicensePlateModule } from './modules/license_plate/license_plate.module';
 import { CarInfoModule } from './modules/car_info/car_info.module';
+import { AuthModule } from './modules/auth/auth.module';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -24,11 +25,12 @@ import { CarInfoModule } from './modules/car_info/car_info.module';
         CommonModule,
         I18nModule,
         MongoModule,
-        // UserModule,
+        UserModule,
         ParkingLotsModule,
         ParkingSpotsModule,
         LicensePlateModule,
-        CarInfoModule
+        CarInfoModule,
+        AuthModule
     ],
     controllers: [AppController],
     providers: [
