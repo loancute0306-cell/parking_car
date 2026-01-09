@@ -10,8 +10,9 @@ export const UserAttributesForList: (keyof User)[] = [
     '_id',
     'id',
     'name',
+    'password',
     'createdAt',
     'updatedAt',
 ];
 
-export const UserAttributesForDetail: (keyof User)[] = ['_id', 'id', 'name'];
+export const UserAttributesForDetail: (keyof User)[] = ['_id', 'id', 'name', 'password'];

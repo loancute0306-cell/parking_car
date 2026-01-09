@@ -13,6 +13,17 @@ export class CreateUserDto {
     })
     @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
     name: string;
+
+    @ApiProperty({
+        type: String,
+        maxLength: INPUT_TEXT_MAX_LENGTH,
+    })
+    @JoiValidate(Joi.string()
+        .trim()
+        .min(8)
+        .max(INPUT_TEXT_MAX_LENGTH)
+        .required())
+    password: string;
 }
 
 export class UpdateUserDto {
@@ -23,6 +34,17 @@ export class UpdateUserDto {
     })
     @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
     name: string;
+
+    @ApiProperty({
+        type: String,
+        maxLength: INPUT_TEXT_MAX_LENGTH,
+    })
+    @JoiValidate(Joi.string()
+        .trim()
+        .min(8)
+        .max(INPUT_TEXT_MAX_LENGTH)
+        .required())
+    password: string;
 }
 
 export class GetUserListQuery extends CommonListQuery {
@@ -45,4 +67,15 @@ export class GetUserListQuery extends CommonListQuery {
     })
     @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
     name?: string;
+
+    @ApiProperty({
+        type: String,
+        maxLength: INPUT_TEXT_MAX_LENGTH,
+    })
+    @JoiValidate(Joi.string()
+        .trim()
+        .min(8)
+        .max(INPUT_TEXT_MAX_LENGTH)
+        .required())
+    password?: string;
 }

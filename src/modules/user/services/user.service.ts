@@ -10,6 +10,7 @@ import {
 import { User } from '../../../database/schemas/user.schema';
 import { UserRepository } from '../user.repository';
 import { UserAttributesForDetail } from '../user.constant';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService extends BaseService<User, UserRepository> {
@@ -18,15 +19,25 @@ export class UserService extends BaseService<User, UserRepository> {
     }
 
     async createUser(dto: CreateUserDto) {
+        const saltOrRound = 10;
         try {
             const user: SchemaCreateDocument<User> = {
                 ...(dto as any),
+                password: await bcrypt.hash(dto.password, saltOrRound),
             };
+            const isUserExists = await this.findOne(dto.name);
+            if (isUserExists) {
+                throw new Error('User already exists');
+            }
             return await this.userRepository.createOne(user);
         } catch (error) {
             this.logger.error('Error in UserService createUser: ' + error);
             throw error;
         }
+    }
+
+    async findOne(name: string): Promise<User | null> {
+        return this.userRepository.findOne(name);
     }
 
     async updateUser(id: Types.ObjectId, dto: UpdateUserDto) {
