@@ -1,7 +1,7 @@
 import { BaseController } from "@/common/base/base.controller";
 import { CarInfoService } from "../services/car_info.service";
-import { ApiOperation, ApiTags, ApiBody } from "@nestjs/swagger";
-import { Controller, Param } from "@nestjs/common";
+import { ApiOperation, ApiTags, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
+import { Controller, Param, UseGuards } from "@nestjs/common";
 import { ApiResponseError, ApiResponseSuccess, SwaggerApiType } from "@/common/services/swagger.service";
 import {
     createCarInfoSuccessResponseExample,
@@ -17,7 +17,10 @@ import { Body, Post, Patch, Delete, Get, Query } from "@nestjs/common";
 import { SuccessResponse, ErrorResponse } from "@/common/helpers/response";
 import { mongoIdSchema, HttpStatus } from "@/common/constants";
 import { toObjectId } from "@/common/helpers/commonFunctions";
+import { JwtAuthGuard } from "@/modules/guard/jwt-auth.guard";
 @ApiTags('Car Info Apis')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('car-info')
 export class CarInfoController extends BaseController {
     constructor(private readonly carInfoService: CarInfoService) {
