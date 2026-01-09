@@ -56,6 +56,15 @@ export class BaseRepository<T extends MongoBaseSchema> {
         }
     }
 
+    async findOne(name: string): Promise<SchemaDocument<T> | null> {
+        try {
+            return await this.model.findOne({ name })
+        } catch (error) {
+            this.logger.error(`Error in BaseRepository findOne: ${error}`);
+            throw error;
+        }
+    }
+
     async getOneById(id: SchemaId, attributes: SchemaAttribute<T>[]) {
         try {
             return this.model.findOne(
