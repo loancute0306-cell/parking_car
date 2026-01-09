@@ -1,5 +1,5 @@
-import { ApiOperation, ApiTags, ApiBody } from "@nestjs/swagger";
-import { Controller, Post, Patch, Delete, Get, Query } from "@nestjs/common";
+import { ApiOperation, ApiTags, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
+import { Controller, Post, Patch, Delete, Get, Query, UseGuards } from "@nestjs/common";
 import { BaseController } from "@/common/base/base.controller";
 import { ParkingSpotsService } from "../services/parking_spots.service";
 import { ApiResponseError, ApiResponseSuccess, SwaggerApiType } from "@/common/services/swagger.service";
@@ -21,7 +21,10 @@ import {
 import { toObjectId } from "@/common/helpers/commonFunctions";
 import { TrimBodyPipe } from "@/common/pipe/trim.body.pipe";
 import { JoiValidationPipe } from "@/common/pipe/joi.validation.pipe";
+import { JwtAuthGuard } from "@/modules/guard/jwt-auth.guard";
 @ApiTags('Parking Spots APIs')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('parking-spots')
 export class ParkingSpotsController extends BaseController {
     constructor(private readonly parkingSpotsService: ParkingSpotsService) {
